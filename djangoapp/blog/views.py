@@ -21,7 +21,8 @@ def index(request):
     )
 
 def created_by(request, author_pk):
-    posts = Post.objects.get_published().filter(created_by__pk= author_pk )
+    posts = Post.objects.get_published()\
+        .filter(created_by__pk=author_pk)
 
     paginator = Paginator(posts, PER_PAGE)
     page_number = request.GET.get("page")
@@ -35,8 +36,10 @@ def created_by(request, author_pk):
         }
     )
 
+
 def category(request, slug):
-    posts = Post.objects.get_published().filter(category__slug= slug )
+    posts = Post.objects.get_published()\
+        .filter(category__slug=slug)
 
     paginator = Paginator(posts, PER_PAGE)
     page_number = request.GET.get("page")
@@ -64,8 +67,10 @@ def page(request, slug):
 
 def post(request, slug):
     post = (
-            Post.objects.get_published().filter(slug= slug).first()
-             )
+        Post.objects.get_published()
+        .filter(slug=slug)
+        .first()
+    )
 
 
     return render(
